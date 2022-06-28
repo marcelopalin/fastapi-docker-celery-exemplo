@@ -1,0 +1,43 @@
+# Dockerfile
+
+FROM tiangolo/uvicorn-gunicorn:python3.8-slim
+
+LABEL maintainer="Thales"
+LABEL description="Imagem do Producer"
+
+RUN apt-get -y update \
+    && apt-get install --no-install-recommends -y \
+    wget \
+    unzip \
+    joe \
+    gnupg \
+    curl \
+    build-essential \
+    netcat
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/opt/app" \
+    VENV_PATH="/opt/app/.venv" \
+    CHROMEDRIVER_DIR="/usr/bin"
+
+
+# é criado na imagem o download_sintegre
+WORKDIR $PYSETUP_PATH
+
+# copie tudo do diretório
+COPY . $PYSETUP_PATH
+
+# Rode a instalação dos pacotes
+# RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

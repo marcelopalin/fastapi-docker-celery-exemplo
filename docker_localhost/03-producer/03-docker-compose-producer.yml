@@ -1,0 +1,34 @@
+version: '3.3'
+
+networks:
+  web:
+    external: true
+
+services:
+  producer:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.localhost
+    command:  celery -A app.core.operacoes_matematicas worker --loglevel=info --logfile=logs/worker1.log
+    ports:
+      - 8001:8000
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    networks:
+      - web
+    # Here we define our settings for traefik how to proxy our service.
+    labels:
+      # This is enableing treafik to proxy this service
+      - "traefik.enable=false"
+      # Here we have to define the URL
+      - "traefik.http.routers.producer.rule=Host(`producer.localhost`)"
+      # Here we are defining wich entrypoint should be used by clients to access this service
+      - "traefik.http.routers.producer.entrypoints=web"
+      # Here we define in wich network treafik can find this service
+      - "traefik.docker.network=web"
+      # This is the port that traefik should proxy
+      - "traefik.http.services.producer.loadbalancer.server.port=8001"
+    volumes:
+      - ../../logs:/opt/pysetup/logs
+    restart: always

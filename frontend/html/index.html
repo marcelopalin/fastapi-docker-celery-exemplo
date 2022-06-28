@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Option 1: Include in HTML -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"
+      integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- Toastr -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+    ></script>
+
+    <title>Celery Tasks</title>
+    <link rel="icon" href="images/logo.svg" sizes="32x32" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- CONTAINER COM GRID-AREA
+      1a linha temos 2 colunas e vou preencher com header header
+      2a linha temos 2 colunas e vou preencher com sidebar main
+      3a linha temos 2 colunas e vou preencher com footer footer
+    -->
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <nav>
+          <ul>
+            <li class="logo">
+              <a href="https://ampereconsultoria.com.br" target="blank"
+                ><img src="images/logo.svg" sizes="32x32" alt=""
+              /></a>
+            </li>
+            <li>
+              <a
+                href="https://getflywheel.com/layout/combine-flexbox-and-css-grids-for-layouts-how-to/"
+                target="blank"
+                >About CSS</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- sidebar - Menu -->
+      <aside class="sidebar">
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="#tarefa1-secao">Tarefa 1</a></li>
+          <li><a href="#tarefa2-secao">Tarefa 2</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main -->
+      <section class="main">
+        <!-- Download Eólica -->
+        <div id="tarefa1-secao">
+          <h2>Tarefa 1 - Somar</h2>
+          <div class="card">
+            <div class="card-body">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="executar_chamada_tarefa1()"
+              >
+                Executar
+              </button>
+              <input
+                type="date"
+                id="data_tarefa1"
+                name="data_tarefa1"
+                min="1997-01-01"
+                max="2030-12-31"
+              />
+            </div>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="tab_result_tarefa1"></tbody>
+        </table>
+
+        <!-- Tarefa 2 -->
+        <div id="tarefa1-secao" class="mt-5">
+          <h2>Tarefa 2 - Subtrair</h2>
+          <div class="card">
+            <div class="card-body">
+              <button
+                type="button"
+                class="btn btn-danger"
+                onclick="executar_chamada_tarefa2()"
+              >
+                Executar
+              </button>
+              <input
+                type="date"
+                id="data_tarefa2"
+                name="data_tarefa2"
+                min="1997-01-01"
+                max="2030-12-31"
+              />
+            </div>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="tab_result_tarefa2"></tbody>
+        </table>
+      </section>
+
+      <footer>
+        <a href="https://sintegre.ons.org.br/" target="blank"
+          ><i class="fa fa-book fa-2x" aria-hidden="true"></i>Sintegre ONS
+        </a>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-python.min.js"></script>
+
+    <script>
+      document.getElementById("data_tarefa1").valueAsDate = new Date();
+      document.getElementById("data_tarefa2").valueAsDate = new Date();
+
+      const executar_chamada_tarefa1 = () => {
+        payload = {
+          x: 10,
+          y: 1,
+          data: `${formatDate(Date.now())}`,
+        };
+        axios
+          .post("http://backend.localhost/tarefa1", payload)
+          .then((response) => {
+            console.log(response);
+            return response.data;
+          })
+          .then((data) => {
+            console.log(`Consultando Tarefa de ID: ${data.task_id}`);
+            get_status_tarefa1(data.task_id);
+          })
+          .catch(function (error) {
+            console.log(error.response.status); // 401
+            console.log(error.response.data.error); //Please Authenticate or whatever returned from server
+            if (error.response.status == 401) {
+              console.log("Rota protegida! Token Inválido!");
+            }
+          });
+      };
+
+      function get_status_tarefa1(taskID) {
+        fetch(`http://backend.localhost/tarefa1/status/${taskID}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((res) => {
+            console.log(res);
+            const html = `
+                        <tr>
+                            <td>${taskID}</td>
+                            <td>${res.task_status}</td>
+                            <td>${res.task_result}</td>
+                        </tr>`;
+            const newRow = document
+              .getElementById("tab_result_tarefa1")
+              .insertRow(0);
+            newRow.innerHTML = html;
+
+            const taskStatus = res.task_status;
+            if (taskStatus === "SUCCESS" || taskStatus === "FAILURE")
+              return false;
+            setTimeout(function () {
+              get_status_tarefa1(res.task_id);
+            }, 1000);
+          })
+          .catch((err) => console.log(err));
+      }
+
+      const executar_chamada_tarefa2 = () => {
+        payload = {
+          x: 100,
+          y: 80,
+          data: `${formatDate(Date.now())}`,
+        };
+        axios
+          .post("http://backend.localhost/tarefa2", payload)
+          .then((response) => {
+            console.log(response);
+            return response.data;
+          })
+          .then((data) => {
+            console.log(`Consultando Tarefa2 de ID: ${data.task_id}`);
+            get_status_tarefa2(data.task_id);
+          })
+          .catch(function (error) {
+            console.log(error.response.status); // 401
+            console.log(error.response.data.error); //Please Authenticate or whatever returned from server
+            if (error.response.status == 401) {
+              console.log("Rota protegida! Token Inválido!");
+            }
+          });
+      };
+
+      function get_status_tarefa2(taskID) {
+        fetch(`http://backend.localhost/tarefa2/status/${taskID}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((res) => {
+            console.log(res);
+            const taskStatus = res.task_status;
+            console.log(`Status: ${taskStatus}`);
+
+            if (taskStatus === "SUCCESS") {
+              console.log(`Finalizou Sucesso: ${taskStatus}`);
+              notificacao(`${taskID} finalizou com Sucesso!`, "success")
+              const html = `
+                          <tr>
+                              <td>${taskID}</td>
+                              <td>${res.task_status}</td>
+                              <td>${res.task_result}!</td>
+                          </tr>`;
+              const newRow = document
+                .getElementById("tab_result_tarefa2")
+                .insertRow(0);
+              newRow.innerHTML = html;
+              return false;
+            }
+            if (taskStatus === "FAILURE") {
+                console.log(`Falhou: ${taskStatus}`);
+                notificacao(`${taskID} falhou`, "error")
+                const html = `
+                          <tr>
+                              <td>${taskID}</td>
+                              <td>${res.task_status}</td>
+                              <td>Falhou!</td>
+                          </tr>`;
+              const newRow = document
+                .getElementById("tab_result_tarefa2")
+                .insertRow(0);
+              newRow.innerHTML = html;
+              return false;
+            }
+
+            const html = `
+                        <tr>
+                            <td>${taskID}</td>
+                            <td>${res.task_status}</td>
+                            <td>Calculando...</td>
+                        </tr>`;
+            const newRow = document
+              .getElementById("tab_result_tarefa2")
+              .insertRow(0);
+            newRow.innerHTML = html;
+
+            setTimeout(function () {
+              get_status_tarefa2(res.task_id);
+            }, 1000);
+          })
+          .catch((err) => console.log(err));
+      }
+
+      function formatDate(date) {
+        var d = new Date(date),
+          month = "" + (d.getMonth() + 1),
+          day = "" + d.getDate(),
+          year = d.getFullYear();
+
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+
+        return [year, month, day].join("-");
+      }
+
+      $(document).ready(function () {
+        toastr.options.timeOut = 3500; // 3.5s
+        toastr.success("Página carregada!");
+      });
+
+      function notificacao(mensagem, tipo) {
+        toastr.options = {
+          closeButton: false,
+          debug: false,
+          newestOnTop: false,
+          progressBar: true,
+          preventDuplicates: true,
+          onclick: null,
+          showDuration: "100",
+          hideDuration: "1000",
+          timeOut: "5000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "show",
+          hideMethod: "hide",
+        };
+        if(tipo === "info")  toastr.info(`${mensagem}`);
+        if(tipo === "error")  toastr.error(`${mensagem}`);
+        if(tipo === "success")  toastr.success(`${mensagem}`);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+[default]
+# see at https://www.dynaconf.com/#on-env-vars
+CURRENT_ENV = "@jinja {{this.current_env | lower}}" # development or production
+HOME_DIR = "@jinja {{env.HOME}}"
+DIR_INPUT="Entrada"
+
+APP_NAME="Tarefas Background! 🚀"
+APP_VERSAO="1.0.0"
+APP_DESCRIPTION="API Aprendendo Celery ! 🇧🇷"
+
+URL_CHECK_PUBLIC_IP = "https://ifconfig.me"
+DIAS_SEMANA = [ "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo",]

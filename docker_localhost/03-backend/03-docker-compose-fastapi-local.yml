@@ -1,0 +1,31 @@
+version: '3.3'
+
+networks:
+  web:
+    external: true
+
+services:
+  application:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.localhost
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    networks:
+      - web
+    # Here we define our settings for traefik how to proxy our service.
+    labels:
+      # This is enableing treafik to proxy this service
+      - "traefik.enable=true"
+      # Here we have to define the URL
+      - "traefik.http.routers.backend.rule=Host(`backend.localhost`)"
+      # Here we are defining wich entrypoint should be used by clients to access this service
+      - "traefik.http.routers.backend.entrypoints=web"
+      # Here we define in wich network treafik can find this service
+      - "traefik.docker.network=web"
+      # This is the port that traefik should proxy
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
+    volumes:
+      - ../../app/static:/opt/pysetup/app/static
+    restart: always

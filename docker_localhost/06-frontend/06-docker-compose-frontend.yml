@@ -1,0 +1,26 @@
+version: '3.3'
+
+networks:
+  web:
+    external: true
+
+services:
+  application:
+    image: nginx
+    networks:
+      - web
+    # Here we define our settings for traefik how to proxy our service.
+    labels:
+      # This is enableing treafik to proxy this service
+      - "traefik.enable=true"
+      # Here we have to define the URL
+      - "traefik.http.routers.frontend01.rule=Host(`frontend01.localhost`)"
+      # Here we are defining wich entrypoint should be used by clients to access this service
+      - "traefik.http.routers.frontend01.entrypoints=web"
+      # Here we define in wich network treafik can find this service
+      - "traefik.docker.network=web"
+      # This is the port that traefik should proxy
+      - "traefik.http.services.frontend01.loadbalancer.server.port=80"
+    volumes:
+      - ../../frontend/html:/usr/share/nginx/html
+    restart: always
