@@ -5,7 +5,7 @@ description = ""
 authors = ["Renan de Souza Carvalho <renan2.scarvalho@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8,<3.10"
+python = "^3.8,<3.11"
 fastapi = {extras = ["all"], version = "^0.70.0"}
 pydantic = {extras = ["email"], version = "^1.8.2"}
 dynaconf = "^3.1.7"

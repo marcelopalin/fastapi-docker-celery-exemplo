@@ -25,7 +25,7 @@ router = APIRouter(prefix="/tarefa1", tags=["Tarefa1"])
 @router.post("/", status_code=201)
 def run_tarefa1(payload: schemas.Informacao):
     pprint(payload, indent=2)
-    task = add.delay(payload.x, payload.y)
+    task = add.delay(**payload.dict())
     return {"task_id": task.id}
 
 

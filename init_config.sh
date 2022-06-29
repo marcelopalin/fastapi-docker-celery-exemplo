@@ -2,6 +2,7 @@
 cp .env_example .env
 cp .secrets_example.toml .secrets.toml
 cp settings.local.example.toml settings.local.toml
+docker network create web_exemplo
 sudo mkdir logs
 sudo chown -R ubuntu:ubuntu logs
 sudo chmod a+rwx logs

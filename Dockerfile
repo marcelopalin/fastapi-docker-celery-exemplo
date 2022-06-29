@@ -41,8 +41,8 @@ ENV PYTHONUNBUFFERED=1 \
 # create user ubuntu and add to Group Sudo
 ARG user=ubuntu
 ARG group=ubuntu
-ARG uid=1001
-ARG gid=1002
+ARG uid=1000
+ARG gid=1000
 RUN groupadd -g ${gid} ${group}
 RUN useradd -rm -d /home/${user} -s /bin/bash  -g root -G sudo,${group} -u ${uid} ${user}
 RUN mkdir -p /etc/sudoers.d
@@ -122,6 +122,12 @@ WORKDIR $PYSETUP_PATH
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
+#
+RUN mkdir -p $PYSETUP_PATH
+RUN chown -R ${user}:${group} $PYSETUP_PATH
+RUN mkdir -p $PYSETUP_PATH/logs
+RUN chown -R ${user}:${group} $PYSETUP_PATH/logs
+
 # quicker install as runtime deps are already installed
 RUN poetry install
 
@@ -130,7 +136,7 @@ RUN poetry install
 WORKDIR $PYSETUP_PATH
 
 EXPOSE 8000
-CMD ["uvicorn", "--reload", "main:app"]
+CMD ["uvicorn", "--reload", "app.main:app"]
 
 # Troca do usuário root para o usuario criado
 # No .env definimos o UID=1002 igual definimos aqui
@@ -141,10 +147,13 @@ USER ${user}
 FROM python-base as production
 ENV FASTAPI_ENV=production
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-# COPY ./app /app/
-# WORKDIR /app
 # CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app"]
 WORKDIR $PYSETUP_PATH
+
+RUN mkdir -p $PYSETUP_PATH
+RUN chown -R ${user}:${group} $PYSETUP_PATH
+RUN mkdir -p $PYSETUP_PATH/logs
+RUN chown -R ${user}:${group} $PYSETUP_PATH/logs
 # copie tudo do diretório
 # Exceto o que foi definido no .gitignore
 COPY . $PYSETUP_PATH

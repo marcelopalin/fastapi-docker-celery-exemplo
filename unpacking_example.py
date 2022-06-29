@@ -4,6 +4,8 @@ from pydantic import BaseModel
 class Info(BaseModel):
     a: Optional[int] = 10
     b: Optional[int] = 1
+    z: Optional[int] = 1
+    url: Optional[str] = "google.com"
 
 dados_recebidos_pydantic = Info(x=10, y=20)
 dicionario_puro = {'a':1, 'b':2}

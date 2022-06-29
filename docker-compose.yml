@@ -1,8 +1,9 @@
 version: '3.9'
 
-# Não esqueça de criar a rede: docker network create web
+# Não esqueça de criar a rede:
+# docker network create web_exemplo
 networks:
-  web:
+  web_exemplo:
     external: true
 
 services:
@@ -15,13 +16,13 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web_exemplo.address=:80"
     restart: always
     ports:
       - "80:80"
       - "8080:8080" # Interface do Traefik (enabled by --api)
     networks:
-      - web
+      - web_exemplo
     volumes:
       # Traefik passa a controlar os containers do Docker
       - /var/run/docker.sock:/var/run/docker.sock
@@ -33,7 +34,7 @@ services:
     ports:
       - '6379:6379'
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -46,7 +47,7 @@ services:
     ports:
       - 5672:5672
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -64,12 +65,12 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - ~/.docker/database/dump_clima_passado:/home/ubuntu/proj-celery-exemplo/db_backup
-      - ~/.docker/database/clima_passado_data:/var/lib/postgresql/data/
+      - ~/.docker/database/dump_proj-celery-exemplo:/home/ubuntu/proj-celery-exemplo/db_backup
+      - ~/.docker/database/proj-celery-exemplo_data:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -88,7 +89,7 @@ services:
     ports:
       - "16543:80"
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -96,9 +97,9 @@ services:
       # Here we have to define the URL
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
       # Here we are defining wich entrypoint should be used by clients to access this service
-      - "traefik.http.routers.pgadmin.entrypoints=web"
+      - "traefik.http.routers.pgadmin.entrypoints=web_exemplo"
       # Here we define in wich network treafik can find this service
-      - "traefik.docker.network=web"
+      - "traefik.docker.network=web_exemplo"
       # This is the port that traefik should proxy
       - "traefik.http.services.pgadmin.loadbalancer.server.port=80"
 
@@ -111,14 +112,14 @@ services:
       dockerfile: Dockerfile
       target: development
     # user: ${UID} # set a specific user id so the container can write in the data dir
-    command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     ports:
       - 8000:8000
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -126,15 +127,15 @@ services:
       # Here we have to define the URL
       - "traefik.http.routers.backend.rule=Host(`backend.localhost`)"
       # Here we are defining wich entrypoint should be used by clients to access this service
-      - "traefik.http.routers.backend.entrypoints=web"
+      - "traefik.http.routers.backend.entrypoints=web_exemplo"
       # Here we define in wich network treafik can find this service
-      - "traefik.docker.network=web"
+      - "traefik.docker.network=web_exemplo"
       # This is the port that traefik should proxy
       - "traefik.http.services.backend.loadbalancer.server.port=8000"
     volumes:
       - ./app/static:/home/ubuntu/proj-celery-exemplo/app/static
-      - ./Saida:/home/ubuntu/proj-celery-exemplo/Saida
-      - ./logs:/home/ubuntu/proj-celery-exemplo/logs
+      # - ./Saida:/home/ubuntu/proj-celery-exemplo/Saida
+      # - ./logs:/home/ubuntu/proj-celery-exemplo/logs
     restart: always
     depends_on:
       - redis
@@ -145,7 +146,7 @@ services:
     container_name: producer
     user: ${UID} # set a specific user id so the container can write in the data dir
     image: proj-celery-exemplo-backend:${TAG_IMAGE}
-    command: celery -A app.workers.operacoes_matematicas worker --loglevel=info --logfile=logs/worker1.log
+    command: celery -A app.core.operacoes_matematicas worker --loglevel=info --logfile=logs/worker1.log
     ports:
       - 8001:8000
     environment:
@@ -153,13 +154,13 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - C_FORCE_ROOT=true
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
       - "traefik.enable=false"
-    volumes:
-      - ./logs:/home/ubuntu/proj-celery-exemplo/logs
+    # volumes:
+    #   - ./logs:/home/ubuntu/proj-celery-exemplo/logs
     restart: always
     depends_on:
       - redis
@@ -170,14 +171,14 @@ services:
   flower:
     container_name: flower
     image: proj-celery-exemplo-backend:${TAG_IMAGE}
-    command: celery -A app.workers.operacoes_matematicas flower --port=5555 --broker=redis://redis:6379/0
+    command: celery -A app.core.operacoes_matematicas flower --port=5555 --broker=redis://redis:6379/0
     ports:
       - 5555:5555
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -185,13 +186,13 @@ services:
       # Here we have to define the URL
       - "traefik.http.routers.flower.rule=Host(`flower.localhost`)"
       # Here we are defining wich entrypoint should be used by clients to access this service
-      - "traefik.http.routers.flower.entrypoints=web"
+      - "traefik.http.routers.flower.entrypoints=web_exemplo"
       # Here we define in wich network treafik can find this service
-      - "traefik.docker.network=web"
+      - "traefik.docker.network=web_exemplo"
       # This is the port that traefik should proxy
       - "traefik.http.services.flower.loadbalancer.server.port=5555"
-    volumes:
-      - ./logs:/home/ubuntu/proj-celery-exemplo/logs
+    # volumes:
+    #   - ./logs:/home/ubuntu/proj-celery-exemplo/logs
     restart: always
     depends_on:
       - redis
@@ -202,7 +203,7 @@ services:
   frontend:
     image: nginx
     networks:
-      - web
+      - web_exemplo
     # Here we define our settings for traefik how to proxy our service.
     labels:
       # This is enableing treafik to proxy this service
@@ -210,9 +211,9 @@ services:
       # Here we have to define the URL
       - "traefik.http.routers.frontend.rule=Host(`frontend.localhost`)"
       # Here we are defining wich entrypoint should be used by clients to access this service
-      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.entrypoints=web_exemplo"
       # Here we define in wich network treafik can find this service
-      - "traefik.docker.network=web"
+      - "traefik.docker.network=web_exemplo"
       # This is the port that traefik should proxy
       - "traefik.http.services.frontend.loadbalancer.server.port=80"
     volumes:
