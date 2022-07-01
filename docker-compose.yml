@@ -134,8 +134,8 @@ services:
       - "traefik.http.services.backend.loadbalancer.server.port=8000"
     volumes:
       - ./app/static:/home/ubuntu/proj-celery-exemplo/app/static
-      # - ./Saida:/home/ubuntu/proj-celery-exemplo/Saida
-      # - ./logs:/home/ubuntu/proj-celery-exemplo/logs
+      - ./Saida:/home/ubuntu/proj-celery-exemplo/Saida
+      - ./logs:/home/ubuntu/proj-celery-exemplo/logs
     restart: always
     depends_on:
       - redis
@@ -159,8 +159,8 @@ services:
     labels:
       # This is enableing treafik to proxy this service
       - "traefik.enable=false"
-    # volumes:
-    #   - ./logs:/home/ubuntu/proj-celery-exemplo/logs
+    volumes:
+      - ./logs:/home/ubuntu/proj-celery-exemplo/logs
     restart: always
     depends_on:
       - redis
@@ -191,8 +191,6 @@ services:
       - "traefik.docker.network=web_exemplo"
       # This is the port that traefik should proxy
       - "traefik.http.services.flower.loadbalancer.server.port=5555"
-    # volumes:
-    #   - ./logs:/home/ubuntu/proj-celery-exemplo/logs
     restart: always
     depends_on:
       - redis

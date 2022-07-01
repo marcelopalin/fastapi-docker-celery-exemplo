@@ -1,6 +1,6 @@
 {
     "logger": {
-      "path": "app/static/log_app.log",
+      "path": "logs/log_app.log",
       "filename": "access.log",
       "level": "info",
       "rotation": "20 days",

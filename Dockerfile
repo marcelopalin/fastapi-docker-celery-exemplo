@@ -1,15 +1,6 @@
 # pull official base image
 FROM python:3.10.1-slim-buster as python-base
 
-# The Dockerfile uses multi-stage builds
-# Para construir a imagem de um determinado estágio faça:
-# docker build --name poetry-project --file docker/Dockerfile . --target <stage>
-# Se utiliza do docker-compose coloque em build:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#      target: development
-
 LABEL maintainer="Marcelo Palin <marcelo.palin@ampereconsultoria.com.br>"
 LABEL description="Dockerfile Projeto Exemplo"
 
@@ -83,13 +74,6 @@ RUN apt-get update \
         && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
         && apt-get update && apt-get -y install google-chrome-stable
 
-# # Chrome
-# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-# RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' \
-#     && apt-get -y update \
-#     && apt-get install -y google-chrome-stable
-
-
 # Add Tini
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
@@ -107,7 +91,7 @@ RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poet
 WORKDIR $PYSETUP_PATH
 
 # copie tudo do diretório
-# Exceto o que foi definido no .gitignore
+# Exceto o que foi definido no .dockerignore
 COPY . $PYSETUP_PATH
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally

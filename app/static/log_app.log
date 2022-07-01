@@ -636,3 +636,33 @@ INFO     2022-06-29 19:24:04.108 - 172.21.0.6:46198 - "GET /tarefa2/status/a2ac4
 INFO     2022-06-29 19:24:05.335 - 172.21.0.6:46198 - "GET /tarefa2/status/a2ac46b8-4782-45c2-afac-c84306708cfd HTTP/1.1" 200
 INFO     2022-06-29 19:24:07.327 - 172.21.0.6:46198 - "GET /tarefa2/status/a2ac46b8-4782-45c2-afac-c84306708cfd HTTP/1.1" 200
 INFO     2022-06-29 19:24:09.333 - 172.21.0.6:46198 - "GET /tarefa2/status/a2ac46b8-4782-45c2-afac-c84306708cfd HTTP/1.1" 200
+INFO     2022-06-29 19:33:25.009 - 172.21.0.6:46272 - "OPTIONS /tarefa1 HTTP/1.1" 200
+INFO     2022-06-29 19:33:25.015 - 172.21.0.6:46272 - "POST /tarefa1 HTTP/1.1" 307
+INFO     2022-06-29 19:33:25.020 - 172.21.0.6:46272 - "OPTIONS /tarefa1/ HTTP/1.1" 200
+INFO     2022-06-29 19:33:25.029 - 172.21.0.6:46272 - "POST /tarefa1/ HTTP/1.1" 201
+INFO     2022-06-29 19:33:25.036 - 172.21.0.6:46272 - "OPTIONS /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:25.041 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:26.055 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:27.070 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:28.082 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:29.107 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:30.138 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:31.158 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:32.175 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:33.195 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:34.219 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:35.238 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:36.260 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-29 19:33:37.283 - 172.21.0.6:46272 - "GET /tarefa1/status/eaf3fefd-8636-4c84-93c8-c64e56045752 HTTP/1.1" 200
+INFO     2022-06-30 02:00:40.187 - Shutting down
+INFO     2022-06-30 02:00:40.211 - Shutting down
+INFO     2022-06-30 02:00:40.212 - Shutting down
+INFO     2022-06-30 02:00:40.317 - Waiting for application shutdown.
+INFO     2022-06-30 02:00:40.319 - Waiting for application shutdown.
+INFO     2022-06-30 02:00:40.320 - Waiting for application shutdown.
+INFO     2022-06-30 02:00:40.336 - Application shutdown complete.
+INFO     2022-06-30 02:00:40.337 - Application shutdown complete.
+INFO     2022-06-30 02:00:40.337 - Application shutdown complete.
+INFO     2022-06-30 02:00:40.342 - Finished server process [8]
+INFO     2022-06-30 02:00:40.343 - Finished server process [8]
+INFO     2022-06-30 02:00:40.344 - Finished server process [8]
