@@ -1,0 +1,138 @@
+---
+copyright: Copyright &copy; 2022 Marcelo Facio Palin
+edit_uri: ""
+nav:
+  - Home: index.md
+  - Mkdocs:
+    - Exemplos: MKDOCS/MKDOCS.md
+extra:
+  consent:
+    title: Cookie consent
+    description: >
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+  social:
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/ampere.consultoria/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/ampere-consultoria
+extra_css:
+  - assets/css/extra.css
+  - assets/css/hint.min.css
+extra_javascript:
+  - assets/js/tablesort.min.js
+  - assets/js/mermaid.min.js
+  - assets/js/tables.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+markdown_extensions:
+  - tables
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - mdx_spanner
+  - meta
+  - toc:
+      permalink: ⚓︎
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.escapeall
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tilde
+  - pymdownx.magiclink:
+      repo: resume
+      repo_url_shorthand: true
+      user: shaneholloman
+  - pymdownx.tasklist:
+      clickable_checkbox: true
+      custom_checkbox: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+plugins:
+  - search
+  - git-authors
+  # - localsearch
+  - tooltips
+  - progress
+  - redirects:
+      redirect_maps: null
+  - minify:
+      minify_html: true
+  #- enumerate-headings:
+  #    toc_depth: 2
+  #- git-revision-date-localized
+  #- print-site
+repo_name: gitlab.com
+repo_url: https://gitlab.com/ampere-consultoria-empresarial/meteorologia/meteorologia-refatorado.git
+site_author: Marcelo Facio Palin
+site_description: DevOps and Infrastructure
+site_name: FastAPI Celery Docker
+site_url: null
+theme:
+  name: material
+  logo: assets/images/logo_palin.png
+  favicon: assets/images/favicon.ico
+  admonition:
+    abstract: fontawesome/solid/book
+    bug: fontawesome/solid/robot
+    danger: fontawesome/solid/skull
+    example: fontawesome/solid/flask
+    failure: fontawesome/solid/bomb
+    info: fontawesome/solid/info-circle
+    note: fontawesome/solid/sticky-note
+    question: fontawesome/solid/question-circle
+    quote: fontawesome/solid/quote-left
+    success: fontawesome/solid/check
+    tip: fontawesome/solid/bullhorn
+    warning: fontawesome/solid/exclamation-triangle
+  features:
+    - content.tabs.link
+    - navigation.indexes
+    - navigation.instant
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+  font:
+    code: Roboto Mono
+    text: Roboto
+  icon:
+    logo: alien # material/alien
+  language: en
+  palette:
+    - accent: deep orange
+      primary: deep blue
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - accent: deep orange
+      primary: deep gray
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+use_directory_urls: false

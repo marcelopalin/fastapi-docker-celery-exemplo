@@ -27,6 +27,14 @@ mkdocs-material = "^8.2.5"
 dateutils = "^0.6.12"
 celery = {extras = ["redis"], version = "^5.2.7"}
 flower = "^1.0.0"
+lightgallery = "^0.5"
+mdx-spanner = "^0.0.5"
+mkdocs-plugin-progress = "^1.2.0"
+mkdocs-tooltips = "^0.1.0"
+mkdocs-redirects = "^1.0.4"
+mkdocs-minify-plugin = "^0.5.0"
+mkdocs-localsearch = "^0.9.1"
+mkdocs-git-authors-plugin = "^0.6.4"
 
 [tool.poetry.dev-dependencies]
 

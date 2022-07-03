@@ -60,11 +60,9 @@ Removendo-os:
 $ sudo rm -rf *
 ```
 
-
 ## Backend FastAPI
 
 `http://localhost:8000/docs`
-
 
 ```s
 uvicorn app.main:app --port 8000 --reload
@@ -103,7 +101,7 @@ já foram criados. Como comopartilhamos os volumes, os dados não devem ter se p
 alembic upgrade head
 ```
 
-# Subindo o Worker (Producer)
+## Subindo o Worker (Producer)
 
 Verifique se subiu o container do `redis`:
 Subindo o serviço de Broker: sugestão é subir o `redis` utilizando docker com a opção --rm que quando parar
@@ -120,14 +118,20 @@ poetry shell
 celery -A app.workers.operacoes_matematicas worker --loglevel=info --logfile=logs/worker1.log
 ```
 
-# Subindo o Flower
-
+## Subindo o Flower
 
 ```s
 celery -A app.workers.operacoes_matematicas flower --port=5555 --broker=redis://localhost:6379/0
 ```
 
-
-# Frontend
+## Frontend
 
 Na pasta `frontend` temos um Html simples para mostrar a utilização do retorno do celery.
+
+## Documetação do Projeto com Mkdocs
+
+Suba a documentação com o comando:
+
+```s
+mkdocs serve -a localhost:8001 --livereload
+```
